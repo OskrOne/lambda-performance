@@ -17,7 +17,6 @@ public class Dynamo {
 		Table table = dynamoDB.getTable(tableName);
 		Item item = table.getItem("ContractId", contractId);
 		
-		
 		if (item != null) {
 			Asset asset = new Asset();
 			asset.setContractId(item.getString("ContractId"));
