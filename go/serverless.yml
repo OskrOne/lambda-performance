@@ -57,7 +57,7 @@ functions:
     handler: bin/hello
     events:
       - http:
-          path: hello
+          path: assets
           method: post
 
 #    The following are a few example events you can configure
