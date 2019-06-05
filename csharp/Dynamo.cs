@@ -21,6 +21,9 @@ namespace AwsDotnetCsharp
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<Document> getItem(string contractId) {
+
+            insertItemsMassivelyAsync();
+
             var table = Table.LoadTable(amazonDynamoDbClient, AssetTableName);
             var result = await table.GetItemAsync(contractId);
 
@@ -33,12 +36,12 @@ namespace AwsDotnetCsharp
         /// <summary>
         /// Insert 10,000 items in DynamoDB
         /// </summary>
-        private async void insertItemsMassivelyAsync()
+        public async void insertItemsMassivelyAsync()
         {
             Random random = new Random();
             var table = Table.LoadTable(amazonDynamoDbClient, AssetTableName);
             
-            for (int index = 3; index < 10000; index++) {
+            for (int index = 1; index < 1000; index++) {
                 var asset = new Document();
                 asset["ContractId"] = "A" + index;
                 asset["InstrumentId"] = random.Next(100000, 999999);

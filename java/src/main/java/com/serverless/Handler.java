@@ -2,7 +2,6 @@ package com.serverless;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

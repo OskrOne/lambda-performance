@@ -15,8 +15,8 @@ namespace AwsDotnetCsharp
         {
             Request finalRequest = JsonConvert.DeserializeObject<Request>(request.Body);
             Dynamo dynamo = new Dynamo();
-            Document item = dynamo.getItem(finalRequest.ContractId).Result;
 
+            Document item = dynamo.getItem(finalRequest.ContractId).Result;
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
