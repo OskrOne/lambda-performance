@@ -1,0 +1,67 @@
+service: lambda-performance
+provider:
+  name: aws
+  stage: dev
+  region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - "Fn::GetAtt": [ catalogTable, Arn ]
+
+package:
+  individually: true
+  exclude:
+    - "*"
+
+functions:
+  nodejs:
+    runtime: nodejs12.x
+    handler: nodejs/index.handler
+    package:
+      include:
+        - nodejs/*
+    events:
+      - http:
+          path: nodejs/test
+          method: get
+  java:
+    runtime: java11
+    handler: com.serverless.Handler
+    package:
+      artifact: java/target/java-dev.jar
+    events:
+      - http:
+          path: java/test
+          method: get
+  go:
+    runtime: go1.x
+    handler: bin/hello
+    events:
+      - http:
+          path: go/test
+          method: get
+  python:
+    runtime: python3.8
+    handler: index.handler
+    events:
+      - http:
+          path: python/test
+          method: get
+  
+resources: 
+  Resources:
+    catalogTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: catalog
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 1
