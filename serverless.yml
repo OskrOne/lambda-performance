@@ -7,6 +7,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:GetItem
+        - dynamodb:DescribeTable
       Resource:
         - "Fn::GetAtt": [ catalogTable, Arn ]
 
@@ -34,6 +35,15 @@ functions:
     events:
       - http:
           path: java/test
+          method: get
+  csharp:
+    runtime: dotnetcore3.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    package:
+      artifact: csharp/bin/Release/netcoreapp3.1/csharp.zip
+    events:
+      - http:
+          path: csharp/test
           method: get
   go:
     runtime: go1.x

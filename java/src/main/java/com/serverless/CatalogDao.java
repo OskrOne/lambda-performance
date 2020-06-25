@@ -10,11 +10,14 @@ import com.amazonaws.services.dynamodbv2.document.Table;
 
 public class CatalogDao {
 	private final String tableName = "catalog";
+	private AmazonDynamoDB client;
+
+	public CatalogDao() {
+		client = AmazonDynamoDBClientBuilder.defaultClient();
+	}
 	
 	public Map<String, Object> getItem(String id) {
-		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
 		DynamoDB dynamoDB = new DynamoDB(client);
-		
 		Table table = dynamoDB.getTable(tableName);
 		Item item = table.getItem("id", id);
 		
