@@ -3,8 +3,4 @@ Project to test the performance with AWS Lambda using different languages: C#, J
 
 ## Instructions
 
-sls deploy
-aws dynamodb put-item --table-name catalog --item '{"id": { "S": "test"}, "value": { "S": "something"}}'
-
-### Java
-mvn clean package
+Execute deploy.sh
