@@ -13,16 +13,16 @@ provider:
 
 package:
   individually: true
-  exclude:
-    - "*"
 
 functions:
   nodejs:
     runtime: nodejs12.x
     handler: nodejs/index.handler
     package:
+      exclude:
+        - "./**"
       include:
-        - nodejs/*
+        - "nodejs/**"
     events:
       - http:
           path: nodejs/test
@@ -47,14 +47,24 @@ functions:
           method: get
   go:
     runtime: go1.x
-    handler: bin/hello
+    handler: go/bin/main
+    package:
+      exclude:
+        - "./**"
+      include:
+        - "go/**"
     events:
       - http:
           path: go/test
           method: get
   python:
     runtime: python3.8
-    handler: index.handler
+    handler: python/index.handler
+    package:
+      exclude:
+        - "./**"
+      include:
+        - "python/**"
     events:
       - http:
           path: python/test
